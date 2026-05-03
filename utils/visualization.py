@@ -80,6 +80,10 @@ class GradCAM:
         """
         self.model.eval()
         
+        # Unfreeze all parameters temporarily so gradients can flow back to the target layer
+        for param in self.model.parameters():
+            param.requires_grad = True
+            
         # Forward pass
         model_output = self.model(input_image)
         
